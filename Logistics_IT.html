@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IT กับข้อมูลซัพพลายเชนในงานโลจิสติกส์</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;700&family=IBM+Plex+Sans+Thai:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2f5;--card:#fff;--ink:#14232f;--mute:#4f6272;--line:#cfd9e0;--teal:#0f6b6b;--tealsoft:#d6ebe9;--sig:#f2b705;--sigsoft:#fbefc2;--red:#a93b2b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a22;--card:#17262f;--ink:#e8eff4;--mute:#9db0be;--line:#2b3e4a;--teal:#58c4bd;--tealsoft:#173a3c;--sig:#f2b705;--sigsoft:#3a3210;--red:#ee8c7b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1a22;--card:#17262f;--ink:#e8eff4;--mute:#9db0be;--line:#2b3e4a;--teal:#58c4bd;--tealsoft:#173a3c;--sig:#f2b705;--sigsoft:#3a3210;--red:#ee8c7b;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.8 "IBM Plex Sans Thai","Noto Sans Thai",Tahoma,sans-serif}
+h1,h2,h3{font-family:"Prompt","Noto Sans Thai",sans-serif;line-height:1.35;margin:0}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:8px;overflow-x:auto;padding:10px 20px}
+nav a{white-space:nowrap;color:var(--ink);text-decoration:none;padding:4px 14px;border:1px solid var(--line);border-radius:99px;font-size:15px;background:var(--card)}
+nav a:hover,nav a:focus-visible{border-color:var(--teal);outline:2px solid var(--teal);outline-offset:1px}
+header{padding:56px 0 36px}
+h1{font-size:clamp(30px,6vw,52px);font-weight:700;max-width:16em}
+.lead{max-width:38em;color:var(--mute);margin:16px 0 0}
+.defs{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:28px}
+.def{background:var(--card);border-left:6px solid var(--teal);padding:16px 20px;border-radius:4px}
+.def:nth-child(2){border-color:var(--sig)}
+.def b{font-family:"Prompt",sans-serif}
+section{padding:40px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(24px,4vw,34px);font-weight:700;margin-bottom:6px}
+.sub{color:var(--mute);margin:0 0 22px}
+.rail{display:flex;gap:0;margin-bottom:0}
+.rail button{flex:1;font:500 16px/1.3 "Prompt",sans-serif;padding:14px 8px;border:2px solid var(--teal);background:var(--card);color:var(--ink);cursor:pointer;border-right-width:0}
+.rail button:last-child{border-right-width:2px}
+.rail button[aria-selected="true"]{background:var(--teal);color:var(--bg)}
+.rail button:focus-visible{outline:3px solid var(--sig);outline-offset:-3px}
+.stage{background:var(--card);border:2px solid var(--teal);border-top:0;padding:22px;display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.stage h3{font-size:16px;color:var(--teal);margin-bottom:6px}
+.stage ul{margin:0;padding-left:20px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.box{background:var(--card);padding:18px 20px;border-radius:4px;border-top:4px solid var(--teal)}
+.box h3{font-size:19px}
+.box .hook{display:inline-block;background:var(--sigsoft);padding:0 10px;border-radius:99px;font-size:15px;margin:6px 0 8px}
+.box p{margin:0;color:var(--mute)}
+.tag{font-family:"Prompt",sans-serif;color:var(--teal)}
+.group{margin-bottom:26px}
+.group h3{font-size:20px;margin-bottom:10px}
+.group h3 span{font-size:15px;font-weight:500;color:var(--mute);font-family:"IBM Plex Sans Thai",sans-serif}
+.steps{counter-reset:s;display:grid;gap:10px;padding:0;list-style:none;margin:0}
+.steps li{counter-increment:s;background:var(--card);border-radius:4px}
+.steps summary{cursor:pointer;padding:14px 18px;font:500 18px/1.4 "Prompt",sans-serif;list-style:none;display:flex;gap:14px;align-items:center}
+.steps summary::-webkit-details-marker{display:none}
+.steps summary::before{content:counter(s);flex:none;width:34px;height:34px;border-radius:50%;background:var(--teal);color:var(--bg);display:grid;place-items:center}
+.steps summary small{font:400 15px/1.4 "IBM Plex Sans Thai",sans-serif;color:var(--mute)}
+.steps summary:focus-visible{outline:3px solid var(--sig)}
+.steps p{margin:0;padding:0 18px 16px 66px;color:var(--mute)}
+.mn{background:var(--sig);color:#14232f;padding:14px 20px;border-radius:4px;margin-top:16px;font-weight:500}
+.scroll{overflow-x:auto;background:var(--card);border-radius:4px}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:"Prompt",sans-serif;background:var(--tealsoft)}
+tr:last-child td{border-bottom:0}
+.pain{color:var(--red);font-weight:500}
+.kpi{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.kpi div{background:var(--card);padding:14px 18px;border-radius:4px;border-left:6px solid var(--sig)}
+.kpi b{display:block;font-family:"Prompt",sans-serif}
+.kpi span{color:var(--mute);font-size:16px}
+.sum{background:var(--teal);color:var(--bg);padding:26px;border-radius:4px}
+.sum h2{margin-bottom:12px}
+.sum ul{margin:0;padding-left:20px}
+footer{padding:30px 0 50px;color:var(--mute);font-size:15px}
+@media (max-width:560px){.rail button{font-size:14px;padding:12px 2px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+<a href="#journey">เส้นทางสินค้า</a><a href="#systems">ระบบหลัก</a><a href="#tech">เทคโนโลยี</a><a href="#data">จัดการข้อมูล</a><a href="#example">ตัวอย่างจริง</a><a href="#problems">ปัญหา</a><a href="#kpi">KPI</a><a href="#recap">สรุป</a>
+</div></nav>
+
+<header><div class="wrap">
+<h1>IT กับข้อมูลซัพพลายเชนในงานโลจิสติกส์</h1>
+<p class="lead">IT คือระบบประสาทของโลจิสติกส์ ช่วยเปลี่ยนการทำงานที่พึ่งเอกสารและการคาดเดา ให้เป็นการตัดสินใจจากข้อมูลเรียลไทม์ ตั้งแต่ผู้ผลิตจนถึงมือลูกค้า</p>
+<div class="defs">
+<div class="def"><b>IT ในงานโลจิสติกส์</b><br>นำคอมพิวเตอร์ ซอฟต์แวร์ เครือข่าย และเทคโนโลยีดิจิทัลมารวบรวม จัดเก็บ ประมวลผล วิเคราะห์ และแลกเปลี่ยนข้อมูล เพื่อให้จัดซื้อ จัดเก็บ ขนส่ง และส่งมอบได้อย่างมีประสิทธิภาพ</div>
+<div class="def"><b>การจัดการข้อมูลซัพพลายเชน</b><br>จัดการข้อมูลของผู้ผลิต ซัพพลายเออร์ คลังสินค้า ผู้ขนส่ง ผู้จัดจำหน่าย และลูกค้า ให้ทุกฝ่ายใช้ข้อมูลที่ถูกต้อง สอดคล้อง และทันเวลา</div>
+</div>
+</div></header>
+
+<main class="wrap">
+
+<section id="journey">
+<h2>ตามรอยสินค้า 1 ชิ้น</h2>
+<p class="sub">กดแต่ละจุด เพื่อดูว่าตรงนั้นใช้ระบบ เทคโนโลยี และข้อมูลอะไร</p>
+<div class="rail" role="tablist" aria-label="ขั้นตอนของสินค้า">
+<button role="tab" aria-selected="true" data-i="0">ผู้ผลิต</button>
+<button role="tab" aria-selected="false" data-i="1">คลังสินค้า</button>
+<button role="tab" aria-selected="false" data-i="2">ขนส่ง</button>
+<button role="tab" aria-selected="false" data-i="3">ลูกค้า</button>
+</div>
+<div class="stage" id="stage" role="tabpanel" aria-live="polite"></div>
+</section>
+
+<section id="systems">
+<h2>ระบบหลัก 6 ตัว และคำช่วยจำ</h2>
+<p class="sub">3 ตัวแรกคือแกนหลัก ที่เหลือเสริมให้ครบวงจร</p>
+<div class="grid">
+<div class="box"><h3>ERP</h3><span class="hook">สมองส่วนกลาง</span><p>Enterprise Resource Planning รวมข้อมูลจัดซื้อ คลัง ขาย ผลิต บัญชี ไว้ที่เดียว ทุกแผนกเห็นข้อมูลชุดเดียวกัน เช่น SAP, Oracle</p></div>
+<div class="box"><h3>WMS</h3><span class="hook">มือในคลัง</span><p>Warehouse Management System คุมการรับสินค้า ตำแหน่งจัดเก็บ การหยิบ การบรรจุ และการจ่ายออก ลดเวลาค้นหาและลดความผิดพลาด</p></div>
+<div class="box"><h3>TMS</h3><span class="hook">ล้อบนถนน</span><p>Transportation Management System วางแผนเที่ยวรถและเส้นทาง เลือกผู้ขนส่ง ติดตามการจัดส่ง และวิเคราะห์ค่าขนส่ง</p></div>
+<div class="box"><h3>SCM Software</h3><span class="hook">นักวางแผน</span><p>วางแผนอุปสงค์ (Demand Planning) และอุปทาน ว่าควรมีสินค้าเท่าไรและเมื่อไร</p></div>
+<div class="box"><h3>OMS</h3><span class="hook">โต๊ะรับออเดอร์</span><p>Order Management System รวมคำสั่งซื้อจากทุกช่องทางไว้จัดการที่เดียว</p></div>
+<div class="box"><h3>EDI / API</h3><span class="hook">ล่ามระหว่างบริษัท</span><p>แลกเปลี่ยนเอกสารธุรกิจอัตโนมัติ เช่น ใบสั่งซื้อ ใบแจ้งส่งสินค้า ข้อมูลการจัดส่ง ลดการส่งเอกสารด้วยมือ</p></div>
+</div>
+<p class="mn">จำง่ายๆ: ERP คิด, WMS จับ, TMS ส่ง</p>
+</section>
+
+<section id="tech">
+<h2>เทคโนโลยี 10 ตัว จัดเป็น 5 หมวด</h2>
+<p class="sub">จำเป็นหมวดก่อน แล้วค่อยจำชื่อ</p>
+<div class="group"><h3>1. ระบุ <span>ใช้บอกว่านี่คือสินค้าอะไร</span></h3>
+<div class="grid">
+<div class="box"><h3>Barcode / QR Code</h3><p>สแกนเพื่อรู้รหัสสินค้า จำนวน และรายการรับเข้า–จ่ายออก ลดการกรอกด้วยมือ</p></div>
+<div class="box"><h3>RFID</h3><p>ใช้คลื่นวิทยุ อ่านแท็กได้โดยไม่ต้องหันตรงเครื่องอ่าน ติดตามพาเลตและการเคลื่อนย้ายในคลัง</p></div></div></div>
+<div class="group"><h3>2. ติดตาม <span>ใช้บอกว่าสินค้าอยู่ไหน สภาพเป็นอย่างไร</span></h3>
+<div class="grid">
+<div class="box"><h3>GPS</h3><p>ระบุตำแหน่งรถขนส่ง ติดตามสถานะ และวางแผนเส้นทางให้เหมาะกับเวลาและต้นทุน</p></div>
+<div class="box"><h3>IoT</h3><p>เซนเซอร์วัดอุณหภูมิ ความชื้น ตำแหน่ง เหมาะกับสินค้าเน่าเสียง่ายและห่วงโซ่ความเย็น (Cold Chain)</p></div></div></div>
+<div class="group"><h3>3. คิด <span>ใช้วิเคราะห์และทำนาย</span></h3>
+<div class="grid">
+<div class="box"><h3>Big Data</h3><p>วิเคราะห์ข้อมูลปริมาณมากเพื่อหาแนวโน้มและจุดคอขวด</p></div>
+<div class="box"><h3>AI / Machine Learning</h3><p>พยากรณ์ความต้องการ (Demand Forecasting) คำนวณเส้นทางใหม่เมื่อรถติดหรือเกิดอุบัติเหตุ ตรวจจับความผิดปกติ</p></div>
+<div class="box"><h3>Digital Twin</h3><p>จำลองซัพพลายเชนขึ้นมาทดลองสถานการณ์ก่อนทำจริง</p></div></div></div>
+<div class="group"><h3>4. เก็บและแชร์ <span>ใช้ให้ทุกฝ่ายเห็นข้อมูลตรงกัน</span></h3>
+<div class="grid">
+<div class="box"><h3>Cloud Computing</h3><p>ซัพพลายเออร์ โรงงาน และผู้ขนส่ง เข้าถึงและอัปเดตสถานะพร้อมกัน ไม่ต้องรออีเมลหรือเอกสาร</p></div>
+<div class="box"><h3>Blockchain</h3><p>บันทึกที่แก้ไขไม่ได้ ใช้ตรวจสอบย้อนกลับ (Traceability) ว่าสินค้าแท้และผ่านมาตรฐานทุกขั้นตอน</p></div></div></div>
+<div class="group"><h3>5. ทำแทน <span>ใช้ลดงานซ้ำ</span></h3>
+<div class="grid">
+<div class="box"><h3>RPA</h3><p>หุ่นยนต์ซอฟต์แวร์ทำงานเอกสารซ้ำๆ อัตโนมัติ</p></div></div></div>
+<p class="mn">จำง่ายๆ: ระบุ → ติดตาม → คิด → เก็บและแชร์ → ทำแทน</p>
+</section>
+
+<section id="data">
+<h2>จัดการข้อมูล 5 ขั้นตอน</h2>
+<p class="sub">กดแต่ละข้อเพื่อดูรายละเอียด</p>
+<ol class="steps">
+<li><details><summary><span>รวบรวม <small>Data Collection</small></span></summary><p>เก็บจากบาร์โค้ด RFID ใบสั่งซื้อ ระบบคลัง GPS เซนเซอร์ และระบบของคู่ค้า</p></details></li>
+<li><details><summary><span>ตรวจสอบ <small>Data Quality</small></span></summary><p>ตรวจรหัสสินค้า จำนวน หน่วยนับ วันที่ และข้อมูลผู้จำหน่าย ให้ถูกต้องและเป็นมาตรฐานเดียวกัน (Master Data Management)</p></details></li>
+<li><details><summary><span>จัดเก็บ <small>Data Storage</small></span></summary><p>เก็บในฐานข้อมูลกลาง ERP หรือคลาวด์ พร้อมกำหนดสิทธิ์การเข้าถึงและสำรองข้อมูล</p></details></li>
+<li><details><summary><span>วิเคราะห์ <small>Data Analytics</small></span></summary><p>วิเคราะห์ยอดขาย ความต้องการ ระดับสต็อก เวลาขนส่ง และต้นทุน แล้วแสดงผลผ่าน Dashboard หรือ Control Tower เพื่อมองเห็นแบบ End-to-End</p></details></li>
+<li><details><summary><span>แลกเปลี่ยน <small>Data Sharing</small></span></summary><p>เชื่อมข้อมูลกับผู้ผลิต ผู้จำหน่าย ผู้ขนส่ง และลูกค้า ผ่าน API, EDI หรือ Middleware</p></details></li>
+</ol>
+<p class="mn">จำง่ายๆ: รู้ ตรง เก็บ คิด แชร์</p>
+<div class="grid" style="margin-top:16px">
+<div class="box"><h3>มาตรฐาน GS1</h3><p>ใช้รหัสมาตรฐานร่วมกัน ช่วยระบุสินค้า อ่านบาร์โค้ดหรือ RFID และแบ่งปันข้อมูลเพื่อการตรวจสอบย้อนกลับ</p></div>
+<div class="box"><h3>ความปลอดภัยและกฎหมาย</h3><p>ป้องกันข้อมูลรั่วไหล และปฏิบัติตามกฎหมายคุ้มครองข้อมูลส่วนบุคคล (PDPA ในไทย)</p></div>
+</div>
+</section>
+
+<section id="example">
+<h2>ตัวอย่างจริง: ร้านออนไลน์ส่งทั่วประเทศ</h2>
+<p class="sub">ดูว่าแต่ละขั้นใช้เทคโนโลยีและข้อมูลอะไร</p>
+<div class="scroll"><table>
+<tr><th>ขั้นตอน</th><th>เทคโนโลยี</th><th>ข้อมูลที่จัดการ</th></tr>
+<tr><td>1. รับคำสั่งซื้อ</td><td>ERP / EDI / OMS</td><td>รายการสินค้า จำนวน ข้อมูลคำสั่งซื้อ</td></tr>
+<tr><td>2. ตรวจสอบสินค้า</td><td>WMS / Barcode</td><td>รหัสสินค้า จำนวน ตำแหน่งจัดเก็บ</td></tr>
+<tr><td>3. แพ็กและเตรียมส่ง</td><td>Barcode / WMS</td><td>รายการที่หยิบ หมายเลขพัสดุ</td></tr>
+<tr><td>4. วางแผนขนส่ง</td><td>TMS</td><td>เส้นทาง ทะเบียนรถ เที่ยวขนส่ง</td></tr>
+<tr><td>5. ติดตามการจัดส่ง</td><td>GPS / IoT</td><td>ตำแหน่ง สถานะ สภาพแวดล้อม</td></tr>
+<tr><td>6. ยืนยันการส่งมอบ</td><td>ระบบติดตามพัสดุ</td><td>วันเวลาและหลักฐานการส่ง</td></tr>
+</table></div>
+<p class="sub" style="margin-top:12px">ผลที่คาดหวังคือรู้ว่าสินค้าอยู่ที่ใด จำนวนเท่าใด อยู่ขั้นไหน และมีปัญหาหรือไม่ ผลจริงขึ้นอยู่กับความเหมาะสมของระบบ คุณภาพข้อมูล และการใช้งาน</p>
+</section>
+
+<section id="problems">
+<h2>ปัญหาที่พบ และทางแก้</h2>
+<div class="scroll"><table>
+<tr><th>ปัญหา</th><th>แนวทางแก้ไข</th></tr>
+<tr><td class="pain">สต็อกในระบบไม่ตรงของจริง</td><td>ใช้บาร์โค้ดหรือ RFID และตรวจนับตามรอบ</td></tr>
+<tr><td class="pain">ข้อมูลแต่ละแผนกไม่ตรงกัน (Data Silos)</td><td>เชื่อมระบบและกำหนดข้อมูลมาตรฐานร่วมกัน</td></tr>
+<tr><td class="pain">สินค้าส่งล่าช้า</td><td>ใช้ GPS และ TMS ติดตามสถานะและวิเคราะห์เส้นทาง</td></tr>
+<tr><td class="pain">ข้อมูลสูญหาย รั่วไหล หรือถูกโจมตีทางไซเบอร์</td><td>กำหนดสิทธิ์ผู้ใช้ สำรองข้อมูล ควบคุมความปลอดภัย</td></tr>
+<tr><td class="pain">ลงทุนแล้วไม่คุ้ม</td><td>เริ่มจากปัญหาสำคัญ วัดผลก่อนและหลัง ฝึกอบรมพนักงาน</td></tr>
+<tr><td class="pain">คู่ค้าไม่พร้อมแบ่งปันข้อมูล</td><td>ตกลงมาตรฐานและข้อตกลงการแลกเปลี่ยนข้อมูล</td></tr>
+</table></div>
+</section>
+
+<section id="kpi">
+<h2>KPI ที่ใช้วัดผล</h2>
+<p class="sub">เก็บค่าก่อนและหลังใช้ระบบ จะเห็นผลชัดกว่าดูจากความรู้สึก</p>
+<div class="kpi">
+<div><b>Inventory Accuracy</b><span>ความถูกต้องของสต็อกในระบบเทียบของจริง</span></div>
+<div><b>On-Time Delivery</b><span>สัดส่วนการส่งที่ตรงเวลา</span></div>
+<div><b>Order Fulfillment Time</b><span>เวลาตั้งแต่รับออเดอร์จนส่งมอบ</span></div>
+<div><b>Order Cycle Time</b><span>เวลาตั้งแต่เริ่มสั่งจนถึงส่งมอบ</span></div>
+<div><b>Order Picking Accuracy</b><span>ความถูกต้องในการหยิบสินค้า</span></div>
+<div><b>Transportation Cost per Shipment</b><span>ต้นทุนขนส่งต่อการจัดส่ง 1 รายการ</span></div>
+<div><b>Inventory Turnover</b><span>อัตราหมุนเวียนสินค้าคงคลัง</span></div>
+</div>
+</section>
+
+<section id="recap">
+<div class="sum">
+<h2>สรุปให้จำ</h2>
+<ul>
+<li>ระบบหลัก: ERP คิด, WMS จับ, TMS ส่ง</li>
+<li>เทคโนโลยี 5 หมวด: ระบุ ติดตาม คิด เก็บและแชร์ ทำแทน</li>
+<li>ข้อมูล 5 ขั้น: รู้ ตรง เก็บ คิด แชร์</li>
+<li>ประโยชน์: ลดต้นทุนและสต็อกส่วนเกิน ส่งตรงเวลา ลดความผิดพลาด ตรวจสอบย้อนกลับได้</li>
+<li>อุปสรรค: ข้อมูลกระจัดกระจาย ต้นทุนลงทุน ความปลอดภัย และความพร้อมของคู่ค้า</li>
+</ul>
+</div>
+</section>
+</main>
+<footer><div class="wrap">เนื้อหาเพื่อการเรียนรู้ รวบรวมจากเอกสารที่ให้มา</div></footer>
+
+<script>
+var S=[
+{s:["ERP","EDI / API","SCM Software"],t:["Cloud","Blockchain"],d:["ใบสั่งซื้อ","แหล่งที่มาและมาตรฐานสินค้า (GS1)","แผนอุปสงค์–อุปทาน"]},
+{s:["WMS"],t:["Barcode / QR","RFID"],d:["รหัสสินค้า","จำนวนคงเหลือ","ตำแหน่งจัดเก็บ","รายการที่หยิบ"]},
+{s:["TMS"],t:["GPS","IoT","AI คำนวณเส้นทาง"],d:["เส้นทางและเที่ยวรถ","ทะเบียนรถ","ตำแหน่งและสถานะ","อุณหภูมิและความชื้น"]},
+{s:["OMS","ระบบติดตามพัสดุ"],t:["QR Code","Big Data และ AI"],d:["คำสั่งซื้อ","วันเวลาและหลักฐานการส่งมอบ","ข้อมูลความต้องการเพื่อพยากรณ์รอบถัดไป"]}];
+var L=[["ระบบที่ใช้","เทคโนโลยี","ข้อมูลที่จัดการ"]][0];
+function show(i){
+  var o=S[i],a=[o.s,o.t,o.d],h="";
+  for(var k=0;k<3;k++){h+="<div><h3>"+L[k]+"</h3><ul>"+a[k].map(function(x){return"<li>"+x+"</li>"}).join("")+"</ul></div>"}
+  document.getElementById("stage").innerHTML=h;
+  document.querySelectorAll(".rail button").forEach(function(b,j){b.setAttribute("aria-selected",j===i?"true":"false")});
+}
+document.querySelectorAll(".rail button").forEach(function(b){b.addEventListener("click",function(){show(+b.dataset.i)})});
+show(0);
+</script>
+</body>
+</html>
